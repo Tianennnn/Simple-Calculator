@@ -1,0 +1,48 @@
+.btn {
+    width: 60px;
+    height: 60px;
+    margin: 6px auto;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 50%;
+}
+
+.operators {
+    font-size: 35px;
+    font-weight: 500;
+    color: white;
+    background: #f2a43c;
+}
+.operatorPosition{
+    position: relative;
+    bottom: 3.5px;
+    left: 0.6px;
+}
+.clickedOperators {
+    font-size: 35px;
+    font-weight: 500;
+    background: white;
+    color: #f2a43c;
+}
+
+.numbers {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    background: #333333;
+}
+
+.specials {
+    font-size: 25px;
+    font-weight: 1000;
+    color: black;
+    background: #a5a5a5;
+}
+
+.numberpad {
+    width: 280px;
+    height: 280px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: white;
+}
