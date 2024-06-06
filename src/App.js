@@ -10,7 +10,7 @@ import Button from "./components/Buttons";
 // hover on button
 // maximum input 9 digits
 // if else 换 switch
-// 再次点击operator，先默认等于？
+// 再次点击operator，先默认等于？   prev_operator    prev_num
 //      如果cur是乘除，prev是加减，先乘除，后加减
 //      如果cur是加减，prev是加减，直接加减
 //       如果cur是乘除，prev是乘除，直接乘除
@@ -27,12 +27,11 @@ import Button from "./components/Buttons";
 // if value 大于99个digits， error
 // if result<=99999999, 不管有几个小数位，显示最多9 digits（if前8，后round to一个小数位)
 
-//多点无效
 
 function App() {
     const inputRef = useRef(null);
-    const [input, setInput] = useState("0");
-    const [result, setResult] = useState(0);
+    const [input, setInput] = useState("0");    // tracks the user's input value
+    const [result, setResult] = useState(0);    // tracks the calculation result
     const [curOperator, setCurOperator] = useState(null);
     const Operators = {
         Plus: "Plus",
@@ -46,15 +45,23 @@ function App() {
 
         let newValue;
         // get the pressed number
-        const keyPressed = e.currentTarget.getAttribute("data-value");
+        let keyPressed = e.currentTarget.getAttribute("data-value");
 
         if (input === "0") {
+            // discard the default "0"
             newValue = keyPressed;
+        }
+        else if (keyPressed === "." && input.includes(".")) {
+            // if users pressed multiple "." for a value, 
+            // only keeping one "." is necessary
+            // ignore the extra "."
+            newValue = input;
         }
         else {
             newValue = input + keyPressed;
         }
 
+        //update the values
         setInput(newValue);
         if (curOperator == null) {
             setResult(newValue);
