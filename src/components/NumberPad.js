@@ -60,7 +60,7 @@ function NumberPad() {
         if (curOperator !== null) {
             highlightOperator(null);
         }
-
+        
     }
 
     /**
@@ -78,8 +78,14 @@ function NumberPad() {
             return;
         }
 
-        setCurOperator(Operators.Plus);
-        highlightOperator(Operators.Plus);
+        if (curOperator === Operators.Plus) {
+            setCurOperator(null);
+            highlightOperator(null);
+        }
+        else {
+            setCurOperator(Operators.Plus);
+            highlightOperator(Operators.Plus);
+        }
     };
 
     /**
@@ -97,8 +103,14 @@ function NumberPad() {
             return;
         }
 
-        setCurOperator(Operators.Minus);
-        highlightOperator(Operators.Minus);
+        if (curOperator === Operators.Minus) {
+            setCurOperator(null);
+            highlightOperator(null);
+        }
+        else {
+            setCurOperator(Operators.Minus);
+            highlightOperator(Operators.Minus);
+        }
     };
 
     /**
@@ -116,8 +128,14 @@ function NumberPad() {
             return;
         }
 
-        setCurOperator(Operators.Multiply);
-        highlightOperator(Operators.Multiply);
+        if (curOperator === Operators.Multiply) {
+            setCurOperator(null);
+            highlightOperator(null);
+        }
+        else {
+            setCurOperator(Operators.Multiply);
+            highlightOperator(Operators.Multiply);
+        }
     };
 
     /**
@@ -129,14 +147,20 @@ function NumberPad() {
 
         const inputValue = Number(input);
         // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation.length >= 2 &&
-            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+        if (equation.length >= 2 && 
+            equation[equation.length-1] === Operators.Divide && inputValue === 0) {
             alert("Cannot divide by 0!")
             return;
         }
 
-        setCurOperator(Operators.Divide);
-        highlightOperator(Operators.Divide);
+        if (curOperator === Operators.Divide) {
+            setCurOperator(null);
+            highlightOperator(null);
+        }
+        else {
+            setCurOperator(Operators.Divide);
+            highlightOperator(Operators.Divide);
+        }
     };
 
     /**
@@ -149,7 +173,7 @@ function NumberPad() {
         const inputValue = Number(input);
 
         // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation[equation.length - 1] === Operators.Divide) {
+        if (equation[equation.length-1] === Operators.Divide) {
             alert("Cannot divide by 0!")
             return;
         }
