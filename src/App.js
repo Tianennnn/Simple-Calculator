@@ -29,12 +29,16 @@ import NumberPad from "./components/NumberPad";
 // if value 大于99个digits， error
 // if result<=99999999, 不管有几个小数位，显示最多9 digits（if前8，后round to一个小数位)
 
+//handle calculation erro
+
+
+
 export const calculationContext = createContext();
 
 function App() {
     const inputRef = useRef(null);
     const [input, setInput] = useState("0");    // tracks the user's input value
-    const [result, setResult] = useState(0);    // tracks the calculation result
+    const [equation, setEquation] = useState([]);    // tracks the calculation
 
     /**
      * Represent the given number in scientific notation.
@@ -76,7 +80,7 @@ function App() {
         <calculationContext.Provider
             value={{
                 input, setInput,
-                result, setResult,
+                equation, setEquation,
         }}>
 
             <div className="App">
@@ -86,7 +90,7 @@ function App() {
 
                 <form>
 
-                    <h1> Result: {result}</h1>
+                    <h1> Equation: {equation}</h1>
 
                     <input
                         pattern="[0-9]"

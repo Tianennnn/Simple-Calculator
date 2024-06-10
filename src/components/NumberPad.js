@@ -1,5 +1,7 @@
 import {
     useContext,
+    useEffect,
+    useState
 } from "react";
 import { calculationContext } from "../App"
 import "./styles/NumberPad.css";
@@ -7,17 +9,18 @@ import "./styles/NumberPad.css";
 function NumberPad() {
     const {
         input, setInput,
-        result, setResult,
+        equation, setEquation,
     } = useContext(calculationContext);
 
-    // const [curOperator, setCurOperator] = useState(null);
-    let curOperator = null;
+    const [curOperator, setCurOperator] = useState(null);
+
     const Operators = {
-        Plus: "Plus",
-        Divide: "Divide",
-        Minus: "Minus",
-        Multiply: "Multiply"
+        Plus: " + ",
+        Divide: " ÷ ",
+        Minus: " - ",
+        Multiply: " x "
     }
+
     /**
      * Process the key (for the number keys and the "." key) that the user just pressed
      * @param e 
@@ -29,7 +32,16 @@ function NumberPad() {
         // get the pressed number
         let keyPressed = e.currentTarget.getAttribute("data-value");
 
-        if (input === "0") {
+        if (curOperator !== null) {
+            // save the previous input and previous operator
+            equation.push(Number(input));
+            equation.push(curOperator);
+            setEquation(equation.slice());
+
+            setCurOperator(null);
+            newValue = keyPressed;
+        }
+        else if (input === "0") {
             // discard the default "0"
             newValue = keyPressed;
         }
@@ -45,9 +57,10 @@ function NumberPad() {
 
         //update the values
         setInput(newValue);
-        if (curOperator === null) {
-            setResult(newValue);
+        if (curOperator !== null) {
+            highlightOperator(null);
         }
+
     }
 
     /**
@@ -57,9 +70,15 @@ function NumberPad() {
     function plus(e) {
         e.preventDefault();
 
-        curOperator = Operators.Plus;
-        setInput("0");
+        const inputValue = Number(input);
+        // if a user try to divide a number by 0, alert the user and do nothing
+        if (equation.length >= 2 &&
+            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+            alert("Cannot divide by 0!")
+            return;
+        }
 
+        setCurOperator(Operators.Plus);
         highlightOperator(Operators.Plus);
     };
 
@@ -70,9 +89,15 @@ function NumberPad() {
     function minus(e) {
         e.preventDefault();
 
-        curOperator = Operators.Minus;
-        setInput("0");
+        const inputValue = Number(input);
+        // if a user try to divide a number by 0, alert the user and do nothing
+        if (equation.length >= 2 &&
+            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+            alert("Cannot divide by 0!")
+            return;
+        }
 
+        setCurOperator(Operators.Minus);
         highlightOperator(Operators.Minus);
     };
 
@@ -83,9 +108,15 @@ function NumberPad() {
     function multiply(e) {
         e.preventDefault();
 
-        curOperator = Operators.Multiply;
-        setInput("0");
+        const inputValue = Number(input);
+        // if a user try to divide a number by 0, alert the user and do nothing
+        if (equation.length >= 2 &&
+            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+            alert("Cannot divide by 0!")
+            return;
+        }
 
+        setCurOperator(Operators.Multiply);
         highlightOperator(Operators.Multiply);
     };
 
@@ -96,9 +127,15 @@ function NumberPad() {
     function divide(e) {
         e.preventDefault();
 
-        curOperator = Operators.Divide;
-        setInput("0");
+        const inputValue = Number(input);
+        // if a user try to divide a number by 0, alert the user and do nothing
+        if (equation.length >= 2 &&
+            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+            alert("Cannot divide by 0!")
+            return;
+        }
 
+        setCurOperator(Operators.Divide);
         highlightOperator(Operators.Divide);
     };
 
@@ -111,28 +148,23 @@ function NumberPad() {
 
         const inputValue = Number(input);
 
-        if (curOperator === Operators.Plus) {
-            setResult(Number(result) + inputValue);
+        // if a user try to divide a number by 0, alert the user and do nothing
+        if (equation[equation.length - 1] === Operators.Divide) {
+            alert("Cannot divide by 0!")
+            return;
         }
-        else if (curOperator === Operators.Minus) {
-            setResult(Number(result) - inputValue);
+
+        // save the previous Input and curOperator
+        equation.push(Number(input));
+        if (curOperator !== null) {
+            equation.push(curOperator);
+            equation.push(Number(input));
         }
-        else if (curOperator === Operators.Multiply) {
-            setResult(Number(result) * inputValue);
-        }
-        else if (curOperator === Operators.Divide) {
-            if (inputValue === 0) {
-                alert("Cannot divide by 0!")
-                return;
-            }
-            else {
-                setResult(Number(result) / inputValue);
-            }
-        }
+        setEquation(equation.slice());
 
         // reset
         setInput("0");
-        curOperator = null;
+        setCurOperator(null);
         highlightOperator(null);
     };
 
@@ -157,9 +189,6 @@ function NumberPad() {
         }
 
         setInput(newValue);
-        if (curOperator === null) {
-            setResult(newValue);
-        }
     };
 
     /**
@@ -169,9 +198,9 @@ function NumberPad() {
     function reset(e) {
         e.preventDefault();
 
-        setResult(0);
+        setEquation([]);
         setInput("0");
-        curOperator = null;
+        setCurOperator(null);
 
         // reset the color of operator buttons
         highlightOperator(null);
@@ -190,12 +219,25 @@ function NumberPad() {
             newInput = "0";
         }
         setInput(newInput);
-
-        if (curOperator === null) {
-            setResult(newInput);
-        }
     };
 
+
+    function performOperation(num1, num2, operator) {
+        let result;
+        if (operator === Operators.Plus) {
+            result = num1 + num2;
+        }
+        else if (operator === Operators.Minus) {
+            result = num1 - num2;
+        }
+        else if (operator === Operators.Multiply) {
+            result = num1 * num2;
+        }
+        else if (operator === Operators.Divide) {
+            result = num1 / num2;
+        }
+        return result;
+    }
 
     /**
      * Highlight the specified operator button
