@@ -2,16 +2,22 @@ import {
     useContext,
 } from "react";
 import { calculationContext } from "../App"
-import "./styles/Buttons.css";
+import "./styles/NumberPad.css";
 
-function Buttons() {
+function NumberPad() {
     const {
         input, setInput,
         result, setResult,
-        curOperator, setCurOperator,
-        Operators
     } = useContext(calculationContext);
 
+    // const [curOperator, setCurOperator] = useState(null);
+    let curOperator = null;
+    const Operators = {
+        Plus: "Plus",
+        Divide: "Divide",
+        Minus: "Minus",
+        Multiply: "Multiply"
+    }
     /**
      * Process the key (for the number keys and the "." key) that the user just pressed
      * @param e 
@@ -39,7 +45,7 @@ function Buttons() {
 
         //update the values
         setInput(newValue);
-        if (curOperator == null) {
+        if (curOperator === null) {
             setResult(newValue);
         }
     }
@@ -51,7 +57,7 @@ function Buttons() {
     function plus(e) {
         e.preventDefault();
 
-        setCurOperator(Operators.Plus);
+        curOperator = Operators.Plus;
         setInput("0");
 
         highlightOperator(Operators.Plus);
@@ -64,7 +70,7 @@ function Buttons() {
     function minus(e) {
         e.preventDefault();
 
-        setCurOperator(Operators.Minus);
+        curOperator = Operators.Minus;
         setInput("0");
 
         highlightOperator(Operators.Minus);
@@ -77,7 +83,7 @@ function Buttons() {
     function multiply(e) {
         e.preventDefault();
 
-        setCurOperator(Operators.Multiply);
+        curOperator = Operators.Multiply;
         setInput("0");
 
         highlightOperator(Operators.Multiply);
@@ -90,7 +96,7 @@ function Buttons() {
     function divide(e) {
         e.preventDefault();
 
-        setCurOperator(Operators.Divide);
+        curOperator = Operators.Divide;
         setInput("0");
 
         highlightOperator(Operators.Divide);
@@ -105,17 +111,17 @@ function Buttons() {
 
         const inputValue = Number(input);
 
-        if (curOperator == Operators.Plus) {
+        if (curOperator === Operators.Plus) {
             setResult(Number(result) + inputValue);
         }
-        else if (curOperator == Operators.Minus) {
+        else if (curOperator === Operators.Minus) {
             setResult(Number(result) - inputValue);
         }
-        else if (curOperator == Operators.Multiply) {
+        else if (curOperator === Operators.Multiply) {
             setResult(Number(result) * inputValue);
         }
-        else if (curOperator == Operators.Divide) {
-            if (inputValue == 0) {
+        else if (curOperator === Operators.Divide) {
+            if (inputValue === 0) {
                 alert("Cannot divide by 0!")
                 return;
             }
@@ -126,7 +132,7 @@ function Buttons() {
 
         // reset
         setInput("0");
-        setCurOperator(null);
+        curOperator = null;
         highlightOperator(null);
     };
 
@@ -151,7 +157,7 @@ function Buttons() {
         }
 
         setInput(newValue);
-        if (curOperator == null) {
+        if (curOperator === null) {
             setResult(newValue);
         }
     };
@@ -165,7 +171,7 @@ function Buttons() {
 
         setResult(0);
         setInput("0");
-        setCurOperator(null);
+        curOperator = null;
 
         // reset the color of operator buttons
         highlightOperator(null);
@@ -185,7 +191,7 @@ function Buttons() {
         }
         setInput(newInput);
 
-        if (curOperator == null) {
+        if (curOperator === null) {
             setResult(newInput);
         }
     };
@@ -208,13 +214,13 @@ function Buttons() {
         divideBtn.className = "btn operators";
 
         // Then, hightlight only the specified operator button
-        if (operator == Operators.Plus) {
+        if (operator === Operators.Plus) {
             plusBtn.className = "btn clickedOperators";
         }
-        else if (operator == Operators.Minus) {
+        else if (operator === Operators.Minus) {
             minusBtn.className = "btn clickedOperators";
         }
-        else if (operator == Operators.Multiply) {
+        else if (operator === Operators.Multiply) {
             multiplyBtn.className = "btn clickedOperators";
         }
         else if (operator === Operators.Divide) {
@@ -247,4 +253,4 @@ function Buttons() {
     );
 }
 
-export default Buttons; 
+export default NumberPad; 

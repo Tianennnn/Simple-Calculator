@@ -4,11 +4,12 @@ import {
     createContext
 } from "react";
 import "./App.css";
-import "./components/styles/Buttons.css";
-import Buttons from "./components/Buttons";
+import "./components/styles/NumberPad.css";
+import NumberPad from "./components/NumberPad";
 
 //  ！！！！！！！！！！！！！！！！！
 // hover on button
+// 删ref
 // maximum input 9 digits
 // if else 换 switch
 // 再次点击operator，先默认等于？   prev_operator    prev_num
@@ -34,13 +35,6 @@ function App() {
     const inputRef = useRef(null);
     const [input, setInput] = useState("0");    // tracks the user's input value
     const [result, setResult] = useState(0);    // tracks the calculation result
-    const [curOperator, setCurOperator] = useState(null);
-    const Operators = {
-        Plus: "Plus",
-        Divide: "Divide",
-        Minus: "Minus",
-        Multiply: "Multiply"
-    }
 
     /**
      * Represent the given number in scientific notation.
@@ -83,8 +77,6 @@ function App() {
             value={{
                 input, setInput,
                 result, setResult,
-                curOperator, setCurOperator,
-                Operators
         }}>
 
             <div className="App">
@@ -103,7 +95,7 @@ function App() {
                         placeholder="Type a number"
                     />
 
-                    <Buttons/>
+                    <NumberPad/>
 
                 </form>
 
