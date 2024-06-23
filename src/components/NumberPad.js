@@ -186,6 +186,8 @@ function NumberPad() {
         }
         setEquation(equation.slice());
 
+        calculate();
+
         // reset
         setInput("0");
         setCurOperator(null);
@@ -245,22 +247,56 @@ function NumberPad() {
         setInput(newInput);
     };
 
+    /**
+     * Process the state variable 'equation', which is a list of numbers and operators 
+     * represented in strings. Calculate the result of the corresponidng equation.
+     * 
+     * After the function is finished, the length of the state variable 'equation' should
+     *  be 1, which is the result of the original equation.
+     */
+    function calculate() {
+        let operationResult;    // to temporary hold the calculation result for each operation 
+        let i;      // the pointer
 
-    function performOperation(num1, num2, operator) {
-        let result;
-        if (operator === Operators.Plus) {
-            result = num1 + num2;
+        // first, calculate multiplications and divisions
+        i = 1;      // the index of first operator
+        while (i < equation.length){
+            if (equation[i] === Operators.Multiply){
+                operationResult = Number(equation[i - 1]) * Number(equation[i + 1]);
+                // update the equation
+                equation.splice(i - 1, 3, operationResult);
+            }
+            else if (equation[i] === Operators.Division) {
+                operationResult = Number(equation[i - 1]) / Number(equation[i + 1]);
+                // update the equation
+                equation.splice(i - 1, 3, operationResult);
+            }
+            else{
+                // check the next operator
+                i += 2;
+            }  
         }
-        else if (operator === Operators.Minus) {
-            result = num1 - num2;
+
+        // Then, calculate additions and substractions
+        i = 1;      // reset the pointer
+        while (i < equation.length) {
+            if (equation[i] === Operators.Plus) {
+                operationResult = Number(equation[i - 1]) + Number(equation[i + 1]);
+                // update the equation
+                equation.splice(i - 1, 3, operationResult);
+            }
+            else if (equation[i] === Operators.Minus) {
+                operationResult = Number(equation[i - 1]) - Number(equation[i + 1]);
+                // update the equation
+                equation.splice(i - 1, 3, operationResult);
+            }
+            else {
+                // check the next operator
+                i += 2;
+            }
         }
-        else if (operator === Operators.Multiply) {
-            result = num1 * num2;
-        }
-        else if (operator === Operators.Divide) {
-            result = num1 / num2;
-        }
-        return result;
+
+        setEquation(equation.slice());
     }
 
     /**

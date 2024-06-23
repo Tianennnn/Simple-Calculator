@@ -12,13 +12,9 @@ import NumberPad from "./components/NumberPad";
 // 删ref
 // maximum input 9 digits
 // if else 换 switch
-// 再次点击operator，先默认等于？   prev_operator    prev_num
-//      如果cur是乘除，prev是加减，先乘除，后加减
-//      如果cur是加减，prev是加减，直接加减
-//       如果cur是乘除，prev是乘除，直接乘除
-//      如果cur是加减，prev是乘除，直接加减
-// 先C 后AC
-// 加减乘除顺序
+
+// calculate 的时候also 记得track decimal place（or display 的时候round to 9 digit anyway）
+// (low priority) 先C 后AC
 
 // equal以后input 等于result
 // 设isEqualBtnLastClicked
@@ -29,8 +25,13 @@ import NumberPad from "./components/NumberPad";
 // if value 大于99个digits， error
 // if result<=99999999, 不管有几个小数位，显示最多9 digits（if前8，后round to一个小数位)
 
+// (low priority) 符号按的时候就加入equation，先检查是否tail是符号，是的话pop，再push当前
+
 //handle calculation erro
 
+// =以后， 重新开始
+
+// useEffect to check divide by 0 and alert   (whenever equation is changed )
 
 
 export const calculationContext = createContext();
