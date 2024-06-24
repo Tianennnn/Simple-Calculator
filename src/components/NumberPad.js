@@ -39,7 +39,12 @@ function NumberPad() {
             equation.push(curOperator);
             setEquation(equation.slice());
 
+            // reset the operator and the "=" button
             setCurOperator(null);
+            if (equalBtnLastClicked) {
+                equalBtnLastClicked = false;
+            }
+
             newValue = keyPressed;
         }
         else if (equalBtnLastClicked) {

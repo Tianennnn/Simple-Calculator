@@ -29,8 +29,6 @@ import NumberPad from "./components/NumberPad";
 
 //handle calculation erro
 
-// =以后， 重新开始
-
 // useEffect to check divide by 0 and alert   (whenever equation is changed )
 
 
