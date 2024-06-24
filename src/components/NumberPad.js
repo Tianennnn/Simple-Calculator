@@ -6,6 +6,8 @@ import {
 import { calculationContext } from "../App"
 import "./styles/NumberPad.css";
 
+let equalBtnLastClicked = false;
+
 function NumberPad() {
     const {
         input, setInput,
@@ -13,7 +15,6 @@ function NumberPad() {
     } = useContext(calculationContext);
 
     const [curOperator, setCurOperator] = useState(null);
-
     const Operators = {
         Plus: " + ",
         Divide: " ÷ ",
@@ -40,6 +41,11 @@ function NumberPad() {
 
             setCurOperator(null);
             newValue = keyPressed;
+        }
+        else if (equalBtnLastClicked) {
+            // start new calculation
+            newValue = keyPressed;
+            equalBtnLastClicked = false;
         }
         else if (input === "0") {
             // discard the default "0"
@@ -186,10 +192,12 @@ function NumberPad() {
         }
         setEquation(equation.slice());
 
-        calculate();
-
+        let result = calculate();
+        setInput(result);
+        equalBtnLastClicked = true;
+        
         // reset
-        setInput("0");
+        setEquation([]);
         setCurOperator(null);
         highlightOperator(null);
     };
@@ -296,7 +304,7 @@ function NumberPad() {
             }
         }
 
-        setEquation(equation.slice());
+        return equation[0];
     }
 
     /**
