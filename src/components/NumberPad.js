@@ -184,7 +184,7 @@ function NumberPad() {
         const inputValue = Number(input);
 
         // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation[equation.length-1] === Operators.Divide) {
+        if (equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
             alert("Cannot divide by 0!")
             return;
         }
@@ -279,7 +279,7 @@ function NumberPad() {
                 // update the equation
                 equation.splice(i - 1, 3, operationResult);
             }
-            else if (equation[i] === Operators.Division) {
+            else if (equation[i] === Operators.Divide) {
                 operationResult = Number(equation[i - 1]) / Number(equation[i + 1]);
                 // update the equation
                 equation.splice(i - 1, 3, operationResult);
