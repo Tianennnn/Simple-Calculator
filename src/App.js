@@ -5,6 +5,7 @@ import {
 import "./App.css";
 import "./components/styles/NumberPad.css";
 import NumberPad from "./components/NumberPad";
+import DisplayPanel from "./components/DisplayPanel";
 
 //  ！！！！！！！！！！！！！！！！！
 // hover on button
@@ -100,7 +101,7 @@ function App() {
 
                 <br></br><br></br><br></br>
                 <h1> Input: {input}</h1>
-                <h1> Result: {result}</h1>
+                <DisplayPanel />
                 <h1> {convertNumber("66.9")}</h1>
             </div>
 
