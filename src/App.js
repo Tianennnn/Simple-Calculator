@@ -1,6 +1,5 @@
 import {
     useState,
-    useRef,
     createContext
 } from "react";
 import "./App.css";
@@ -9,17 +8,13 @@ import NumberPad from "./components/NumberPad";
 
 //  ！！！！！！！！！！！！！！！！！
 // hover on button
-// 删ref
 // maximum input 9 digits
 // if else 换 switch
 
 // calculate 的时候also 记得track decimal place（or display 的时候round to 9 digit anyway）
 // (low priority) 先C 后AC
 
-// equal以后input 等于result
-// 设isEqualBtnLastClicked
-// 数字键按的时候查isEqualBtnLastClicked
-
+// Next:
 // 设Display value
 // if value > 999999999 (9个digits)，convert scientific notation
 // if value 大于99个digits， error
@@ -29,16 +24,17 @@ import NumberPad from "./components/NumberPad";
 
 //handle calculation erro
 
-// useEffect to check divide by 0 and alert   (whenever equation is changed )
+// Next: useEffect to check divide by 0 and alert   (whenever equation is changed )
 
+// UseEffect: (whenever display changes) if null, display input; if not null, display result
 
 export const calculationContext = createContext();
 
 function App() {
-    const inputRef = useRef(null);
     const [input, setInput] = useState("0");    // tracks the user's input value
     const [equation, setEquation] = useState([]);    // tracks the calculation
-
+    const [result, setResult] = useState(null);     // tracks the calculation result
+   
     /**
      * Represent the given number in scientific notation.
      * 
@@ -80,11 +76,12 @@ function App() {
             value={{
                 input, setInput,
                 equation, setEquation,
+                result, setResult
         }}>
 
             <div className="App">
                 <div>
-                    <h1>Simplest Working Calculator</h1>
+                    <h1>Simple Calculator</h1>
                 </div>
 
                 <form>
@@ -93,7 +90,6 @@ function App() {
 
                     <input
                         pattern="[0-9]"
-                        ref={inputRef}
                         type="number"
                         placeholder="Type a number"
                     />
@@ -104,6 +100,7 @@ function App() {
 
                 <br></br><br></br><br></br>
                 <h1> Input: {input}</h1>
+                <h1> Result: {result}</h1>
                 <h1> {convertNumber("66.9")}</h1>
             </div>
 
