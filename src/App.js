@@ -23,11 +23,13 @@ import DisplayPanel from "./components/DisplayPanel";
 
 // (low priority) 符号按的时候就加入equation，先检查是否tail是符号，是的话pop，再push当前
 
-//handle calculation erro
-
-// Next: useEffect to check divide by 0 and alert   (whenever equation is changed )
+//handle calculation error
 
 // UseEffect: (whenever display changes) if null, display input; if not null, display result
+
+// refactor operator buttons onclick. Combine to one function.
+
+// refactor highlightOperator
 
 export const calculationContext = createContext();
 

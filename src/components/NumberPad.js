@@ -74,7 +74,7 @@ function NumberPad() {
         if (curOperator !== null) {
             highlightOperator(null);
         }
-        
+
     }
 
     /**
@@ -84,21 +84,17 @@ function NumberPad() {
     function plus(e) {
         e.preventDefault();
 
-        const inputValue = Number(input);
-        // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation.length >= 2 &&
-            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
-            alert("Cannot divide by 0!")
-            return;
-        }
-
-        if (curOperator === Operators.Plus) {
-            setCurOperator(null);
-            highlightOperator(null);
-        }
-        else {
-            setCurOperator(Operators.Plus);
-            highlightOperator(Operators.Plus);
+        if (!isDivisionByZero()) {
+            // if the user already clicked the "+" buttton
+            if (curOperator === Operators.Plus) {
+                // deselect the operator
+                setCurOperator(null);
+                highlightOperator(null);
+            }
+            else {
+                setCurOperator(Operators.Plus);
+                highlightOperator(Operators.Plus);
+            }
         }
     };
 
@@ -109,21 +105,17 @@ function NumberPad() {
     function minus(e) {
         e.preventDefault();
 
-        const inputValue = Number(input);
-        // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation.length >= 2 &&
-            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
-            alert("Cannot divide by 0!")
-            return;
-        }
-
-        if (curOperator === Operators.Minus) {
-            setCurOperator(null);
-            highlightOperator(null);
-        }
-        else {
-            setCurOperator(Operators.Minus);
-            highlightOperator(Operators.Minus);
+        if (!isDivisionByZero()) {
+            // if the user already clicked the "-" buttton
+            if (curOperator === Operators.Minus) {
+                // deselect the operator
+                setCurOperator(null);
+                highlightOperator(null);
+            }
+            else {
+                setCurOperator(Operators.Minus);
+                highlightOperator(Operators.Minus);
+            }
         }
     };
 
@@ -134,21 +126,17 @@ function NumberPad() {
     function multiply(e) {
         e.preventDefault();
 
-        const inputValue = Number(input);
-        // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation.length >= 2 &&
-            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
-            alert("Cannot divide by 0!")
-            return;
-        }
-
-        if (curOperator === Operators.Multiply) {
-            setCurOperator(null);
-            highlightOperator(null);
-        }
-        else {
-            setCurOperator(Operators.Multiply);
-            highlightOperator(Operators.Multiply);
+        if (!isDivisionByZero()) {
+            // if the user already clicked the "X" buttton
+            if (curOperator === Operators.Multiply) {
+                // deselect the operator
+                setCurOperator(null);
+                highlightOperator(null);
+            }
+            else {
+                setCurOperator(Operators.Multiply);
+                highlightOperator(Operators.Multiply);
+            }
         }
     };
 
@@ -159,21 +147,17 @@ function NumberPad() {
     function divide(e) {
         e.preventDefault();
 
-        const inputValue = Number(input);
-        // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation.length >= 2 && 
-            equation[equation.length-1] === Operators.Divide && inputValue === 0) {
-            alert("Cannot divide by 0!")
-            return;
-        }
-
-        if (curOperator === Operators.Divide) {
-            setCurOperator(null);
-            highlightOperator(null);
-        }
-        else {
-            setCurOperator(Operators.Divide);
-            highlightOperator(Operators.Divide);
+        if (!isDivisionByZero()) {
+            // if the user already clicked the "÷" buttton
+            if (curOperator === Operators.Divide) {
+                // deselect the operator
+                setCurOperator(null);
+                highlightOperator(null);
+            }
+            else {
+                setCurOperator(Operators.Divide);
+                highlightOperator(Operators.Divide);
+            }
         }
     };
 
@@ -184,31 +168,25 @@ function NumberPad() {
     function equal(e) {
         e.preventDefault();
 
-        const inputValue = Number(input);
-
-        // if a user try to divide a number by 0, alert the user and do nothing
-        if (equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
-            alert("Cannot divide by 0!")
-            return;
-        }
-
-        // save the previous Input and curOperator
-        equation.push(Number(input));
-        if (curOperator !== null) {
-            equation.push(curOperator);
+        if ( !isDivisionByZero() ) {
+            // save the previous Input and curOperator
             equation.push(Number(input));
-        }
-        setEquation(equation.slice());
+            if (curOperator !== null) {
+                equation.push(curOperator);
+                equation.push(Number(input));
+            }
+            setEquation(equation.slice());
 
-        let result = calculate();
-        setInput(result);
-        setResult(result);
-        equalBtnLastClicked = true;
-        
-        // reset
-        setEquation([]);
-        setCurOperator(null);
-        highlightOperator(null);
+            let result = calculate();
+            setInput(result);
+            setResult(result);
+            equalBtnLastClicked = true;
+
+            // reset
+            setEquation([]);
+            setCurOperator(null);
+            highlightOperator(null);
+        }
     };
 
     /**
@@ -269,7 +247,9 @@ function NumberPad() {
      * represented in strings. Calculate the result of the corresponidng equation.
      * 
      * After the function is finished, the length of the state variable 'equation' should
-     *  be 1, which is the result of the original equation.
+     * be 1, which is the result of the original equation.
+     * 
+     * @returns {Number} the result of calculating the equation
      */
     function calculate() {
         let operationResult;    // to temporary hold the calculation result for each operation 
@@ -277,8 +257,8 @@ function NumberPad() {
 
         // first, calculate multiplications and divisions
         i = 1;      // the index of first operator
-        while (i < equation.length){
-            if (equation[i] === Operators.Multiply){
+        while (i < equation.length) {
+            if (equation[i] === Operators.Multiply) {
                 operationResult = Number(equation[i - 1]) * Number(equation[i + 1]);
                 // update the equation
                 equation.splice(i - 1, 3, operationResult);
@@ -288,10 +268,10 @@ function NumberPad() {
                 // update the equation
                 equation.splice(i - 1, 3, operationResult);
             }
-            else{
+            else {
                 // check the next operator
                 i += 2;
-            }  
+            }
         }
 
         // Then, calculate additions and substractions
@@ -314,10 +294,37 @@ function NumberPad() {
         }
 
         return equation[0];
-    }
+    };
+
 
     /**
-     * Highlight the specified operator button
+     * Checks if a user tries to divide a number by 0.
+     * If so, also alert the user.
+     * 
+     * @returns {boolean} 
+     */
+    function isDivisionByZero() {
+        let result = false;
+        const inputValue = Number(input);
+
+        if (equation.length >= 2 &&
+            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+            alert("Cannot divide by 0!")
+            result = true;
+        }
+        // edge case: when a user has clicked only the "÷" button before clicking
+        //            the "=" button, the equation defaults to: 0 ÷ 0
+        else if (curOperator === Operators.Divide && inputValue === 0) {
+            alert("Cannot divide by 0!")
+            result = true;
+        }
+
+        return result;
+    };
+
+
+    /**
+     * Highlights the specified operator button
      * @param {Operators} operator - The operator button to be highlighted. 
      *                               If value if null, no operator button will be highlighted.
      */
