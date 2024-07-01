@@ -12,7 +12,6 @@ function NumberPad() {
     const {
         input, setInput,
         equation, setEquation,
-        result, setResult
     } = useContext(calculationContext);
 
     const [curOperator, setCurOperator] = useState(null);
@@ -40,8 +39,7 @@ function NumberPad() {
             equation.push(curOperator);
             setEquation(equation.slice());
 
-            // reset the result value, the operator and the "=" button
-            setResult(null);
+            // reset the operator and the "=" button
             setCurOperator(null);
             if (equalBtnLastClicked) {
                 equalBtnLastClicked = false;
@@ -53,7 +51,6 @@ function NumberPad() {
             // start new calculation
             newValue = keyPressed;
             equalBtnLastClicked = false;
-            setResult(null);
         }
         else if (input === "0") {
             // discard the default "0"
@@ -179,7 +176,6 @@ function NumberPad() {
 
             let result = calculate();
             setInput(result);
-            setResult(result);
             equalBtnLastClicked = true;
 
             // reset

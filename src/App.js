@@ -25,8 +25,6 @@ import DisplayPanel from "./components/DisplayPanel";
 
 //handle calculation error
 
-// UseEffect: (whenever display changes) if null, display input; if not null, display result
-
 // refactor operator buttons onclick. Combine to one function.
 
 // refactor highlightOperator
@@ -36,7 +34,6 @@ export const calculationContext = createContext();
 function App() {
     const [input, setInput] = useState("0");    // tracks the user's input value
     const [equation, setEquation] = useState([]);    // tracks the calculation
-    const [result, setResult] = useState(null);     // tracks the calculation result
    
     /**
      * Represent the given number in scientific notation.
@@ -79,7 +76,6 @@ function App() {
             value={{
                 input, setInput,
                 equation, setEquation,
-                result, setResult
         }}>
 
             <div className="App">
