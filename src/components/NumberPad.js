@@ -75,97 +75,34 @@ function NumberPad() {
     }
 
     /**
-     * Prepares for the addition operation
+     * Handles the event when a operator button is clicked.
      * @param e 
      */
-    function plus(e) {
+    function handleOperation(e, clickedOperator) {
         e.preventDefault();
 
         if (!isDivisionByZero()) {
-            // if the user already clicked the "+" buttton
-            if (curOperator === Operators.Plus) {
+            // if the user click on the same operator buttton 
+            if (curOperator === clickedOperator) {
                 // deselect the operator
                 setCurOperator(null);
                 highlightOperator(null);
             }
             else {
-                setCurOperator(Operators.Plus);
-                highlightOperator(Operators.Plus);
+                setCurOperator(clickedOperator);
+                highlightOperator(clickedOperator);
             }
         }
     };
 
     /**
-     * Prepares the substraction operation
-     * @param e 
-     */
-    function minus(e) {
-        e.preventDefault();
-
-        if (!isDivisionByZero()) {
-            // if the user already clicked the "-" buttton
-            if (curOperator === Operators.Minus) {
-                // deselect the operator
-                setCurOperator(null);
-                highlightOperator(null);
-            }
-            else {
-                setCurOperator(Operators.Minus);
-                highlightOperator(Operators.Minus);
-            }
-        }
-    };
-
-    /**
-     * Prepares the multiplication operation
-     * @param e 
-     */
-    function multiply(e) {
-        e.preventDefault();
-
-        if (!isDivisionByZero()) {
-            // if the user already clicked the "X" buttton
-            if (curOperator === Operators.Multiply) {
-                // deselect the operator
-                setCurOperator(null);
-                highlightOperator(null);
-            }
-            else {
-                setCurOperator(Operators.Multiply);
-                highlightOperator(Operators.Multiply);
-            }
-        }
-    };
-
-    /**
-     * Prepares the division operation
-     * @param e 
-     */
-    function divide(e) {
-        e.preventDefault();
-
-        if (!isDivisionByZero()) {
-            // if the user already clicked the "÷" buttton
-            if (curOperator === Operators.Divide) {
-                // deselect the operator
-                setCurOperator(null);
-                highlightOperator(null);
-            }
-            else {
-                setCurOperator(Operators.Divide);
-                highlightOperator(Operators.Divide);
-            }
-        }
-    };
-
-    /**
-     * Calculate the result of the operations
+     * Calculates the result of the operations
      * @param e 
      */
     function equal(e) {
         e.preventDefault();
 
-        if ( !isDivisionByZero() ) {
+        if (!isDivisionByZero()) {
             // save the previous Input and curOperator
             equation.push(Number(input));
             if (curOperator !== null) {
@@ -294,8 +231,8 @@ function NumberPad() {
 
 
     /**
-     * Checks if a user tries to divide a number by 0.
-     * If so, also alert the user.
+     * Checks if a user is trying to divide a number by 0.
+     * If so, alert the user.
      * 
      * @returns {boolean} 
      */
@@ -304,13 +241,14 @@ function NumberPad() {
         const inputValue = Number(input);
 
         if (equation.length >= 2 &&
-            equation[equation.length - 1] === Operators.Divide && inputValue === 0) {
+            equation[equation.length - 1] === Operators.Divide && 
+            (input === "0" || input === ".") ) {
             alert("Cannot divide by 0!")
             result = true;
         }
         // edge case: when a user has clicked only the "÷" button before clicking
         //            the "=" button, the equation defaults to: 0 ÷ 0
-        else if (curOperator === Operators.Divide && inputValue === 0) {
+        else if (curOperator === Operators.Divide && input === "0") {
             alert("Cannot divide by 0!")
             result = true;
         }
@@ -355,19 +293,19 @@ function NumberPad() {
             <button onClick={reset} className="btn specials">AC</button>
             <button onClick={flip} className="btn specials">±</button>
             <button data-value="backspace" onClick={backSpace} className="btn specials">⌫</button>
-            <button id="divide" onClick={divide} className="btn operators"> <span className="operatorPosition">÷</span> </button>
+            <button id="divide" onClick={(e) => { handleOperation(e, Operators.Divide); }} className="btn operators"> <span className="operatorPosition">÷</span> </button>
             <button data-value="7" onClick={updateInput} className="btn numbers">7</button>
             <button data-value="8" onClick={updateInput} className="btn numbers">8</button>
             <button data-value="9" onClick={updateInput} className="btn numbers">9</button>
-            <button id="multiply" onClick={multiply} className="btn operators"><span className="operatorPosition">x</span></button>
+            <button id="multiply" onClick={(e) => { handleOperation(e, Operators.Multiply); }} className="btn operators"><span className="operatorPosition">x</span></button>
             <button data-value="4" onClick={updateInput} className="btn numbers">4</button>
             <button data-value="5" onClick={updateInput} className="btn numbers">5</button>
             <button data-value="6" onClick={updateInput} className="btn numbers">6</button>
-            <button id="minus" onClick={minus} className="btn operators"><span className="operatorPosition">-</span></button>
+            <button id="minus" onClick={ (e) => {handleOperation(e, Operators.Minus);} } className="btn operators"><span className="operatorPosition">-</span></button>
             <button data-value="1" onClick={updateInput} className="btn numbers">1</button>
             <button data-value="2" onClick={updateInput} className="btn numbers">2</button>
             <button data-value="3" onClick={updateInput} className="btn numbers">3</button>
-            <button id="plus" onClick={plus} className="btn operators"><span className="operatorPosition">+</span></button>
+            <button id="plus" onClick={(e) => { handleOperation(e, Operators.Plus); }} className="btn operators"><span className="operatorPosition">+</span></button>
             <button data-value="0" onClick={updateInput} className="btn numbers">0</button>
             <button data-value="." onClick={updateInput} className="btn numbers">.</button>
             <button onClick={equal} className="btn operators"><span className="operatorPosition">=</span></button>

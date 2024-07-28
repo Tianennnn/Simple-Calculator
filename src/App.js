@@ -19,15 +19,12 @@ import DisplayPanel from "./components/DisplayPanel";
 // 设Display value
 // if value > 999999999 (9个digits)，convert scientific notation
 // if value 大于99个digits， error
-// if result<=99999999, 不管有几个小数位，显示最多9 digits（if前8，后round to一个小数位)
+// if result<=99999999, 不管有几个小数位，显示最多9 digits（if 整数8位，小数round to一个小数位)
 
 // (low priority) 符号按的时候就加入equation，先检查是否tail是符号，是的话pop，再push当前
 
-//handle calculation error
+// handle calculation error  (infinity, NaN), (除以number, then backspace)
 
-// refactor operator buttons onclick. Combine to one function.
-
-// refactor highlightOperator
 
 export const calculationContext = createContext();
 
