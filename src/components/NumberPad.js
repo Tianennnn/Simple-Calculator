@@ -3,6 +3,7 @@ import {
     useEffect,
     useState
 } from "react";
+import Decimal from 'decimal.js';
 import { calculationContext } from "../App"
 import "./styles/NumberPad.css";
 
@@ -52,7 +53,7 @@ function NumberPad() {
             newValue = keyPressed;
             equalBtnLastClicked = false;
         }
-        else if (input === "0") {
+        else if (input === "0" && keyPressed !== ".") {
             // discard the default "0"
             newValue = keyPressed;
         }
@@ -191,15 +192,17 @@ function NumberPad() {
         // first, calculate multiplications and divisions
         i = 1;      // the index of first operator
         while (i < equation.length) {
+            let numA = new Decimal(Number(equation[i - 1]));
+            let numB = new Decimal(Number(equation[i + 1]));
             if (equation[i] === Operators.Multiply) {
-                operationResult = Number(equation[i - 1]) * Number(equation[i + 1]);
+                operationResult = numA.times(numB);
                 // update the equation
-                equation.splice(i - 1, 3, operationResult);
+                equation.splice(i - 1, 3, operationResult.toNumber());
             }
             else if (equation[i] === Operators.Divide) {
-                operationResult = Number(equation[i - 1]) / Number(equation[i + 1]);
+                operationResult = numA.dividedBy(numB);
                 // update the equation
-                equation.splice(i - 1, 3, operationResult);
+                equation.splice(i - 1, 3, operationResult.toNumber());
             }
             else {
                 // check the next operator
@@ -210,15 +213,17 @@ function NumberPad() {
         // Then, calculate additions and substractions
         i = 1;      // reset the pointer
         while (i < equation.length) {
+            let numA = new Decimal(Number(equation[i - 1]));
+            let numB = new Decimal(Number(equation[i + 1]));
             if (equation[i] === Operators.Plus) {
-                operationResult = Number(equation[i - 1]) + Number(equation[i + 1]);
+                operationResult = numA.plus(numB);
                 // update the equation
-                equation.splice(i - 1, 3, operationResult);
+                equation.splice(i - 1, 3, operationResult.toNumber());
             }
             else if (equation[i] === Operators.Minus) {
-                operationResult = Number(equation[i - 1]) - Number(equation[i + 1]);
+                operationResult = numA.minus(numB);
                 // update the equation
-                equation.splice(i - 1, 3, operationResult);
+                equation.splice(i - 1, 3, operationResult.toNumber());
             }
             else {
                 // check the next operator
