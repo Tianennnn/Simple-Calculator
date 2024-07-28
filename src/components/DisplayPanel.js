@@ -13,7 +13,7 @@ function DisplayPanel() {
     const [display, setDisplay] = useState("0");
 
     useEffect(() => {
-        if( isNaN(Number(input)) || !isFinite(Number(input)) ){
+        if( isNaN(input) || !isFinite(input) ){
             setDisplay("Error");
         }
         else{

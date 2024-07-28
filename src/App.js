@@ -23,7 +23,6 @@ import DisplayPanel from "./components/DisplayPanel";
 
 // (low priority) 符号按的时候就加入equation，先检查是否tail是符号，是的话pop，再push当前
 
-// handle calculation error  (infinity, NaN), (除以number, then backspace)
 
 
 export const calculationContext = createContext();

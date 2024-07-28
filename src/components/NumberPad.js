@@ -48,7 +48,7 @@ function NumberPad() {
 
             newValue = keyPressed;
         }
-        else if (equalBtnLastClicked) {
+        else if (equalBtnLastClicked || isNaN(input) || !isFinite(input)) {
             // start new calculation
             newValue = keyPressed;
             equalBtnLastClicked = false;
@@ -132,7 +132,7 @@ function NumberPad() {
 
         let newValue;
 
-        if (input === "0") {
+        if (input === "0" || isNaN(input) || !isFinite(input)) {
             // Do nothing
             return;
         }
@@ -169,7 +169,7 @@ function NumberPad() {
         e.preventDefault();
 
         let newInput = input.substring(0, input.length - 1);
-        if (newInput === "" || newInput === "-") {
+        if (newInput === "" || newInput === "-" || isNaN(input) || !isFinite(input)) {
             // input by default is 0
             newInput = "0";
         }
