@@ -113,7 +113,7 @@ function NumberPad() {
             setEquation(equation.slice());
 
             let result = calculate();
-            setInput(result);
+            setInput(String(result));
             equalBtnLastClicked = true;
 
             // reset

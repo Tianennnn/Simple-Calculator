@@ -13,7 +13,12 @@ function DisplayPanel() {
     const [display, setDisplay] = useState("0");
 
     useEffect(() => {
-        setDisplay(input);
+        if( isNaN(Number(input)) || !isFinite(Number(input)) ){
+            setDisplay("Error");
+        }
+        else{
+            setDisplay(input);
+        }
     }, [input]);
 
     return (
