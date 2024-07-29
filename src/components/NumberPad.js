@@ -39,19 +39,24 @@ function NumberPad() {
             equation.push(Number(input));
             equation.push(curOperator);
             setEquation(equation.slice());
-
+            
             // reset the operator and the "=" button
             setCurOperator(null);
             if (equalBtnLastClicked) {
                 equalBtnLastClicked = false;
             }
-
+            
             newValue = keyPressed;
         }
         else if (equalBtnLastClicked || isNaN(input) || !isFinite(input)) {
             // start new calculation
             newValue = keyPressed;
             equalBtnLastClicked = false;
+        }
+        else if (input.replace("-", "").length >= 12){
+            // only allow user to input numbers with digits less than 12
+            // do nothing
+            newValue = input;
         }
         else if (input === "0" && keyPressed !== ".") {
             // discard the default "0"
@@ -243,7 +248,6 @@ function NumberPad() {
      */
     function isDivisionByZero() {
         let result = false;
-        const inputValue = Number(input);
 
         if (equation.length >= 2 &&
             equation[equation.length - 1] === Operators.Divide && 
