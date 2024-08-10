@@ -7,6 +7,12 @@
     border-radius: 50%;
 }
 
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* -------------------------------- */
+
 .operators {
     font-size: 35px;
     font-weight: 500;
@@ -23,7 +29,14 @@
     font-weight: 500;
     background: white;
     color: #f2a43c;
+    transition: background 0.2s ease;
 }
+
+.operators:active {
+    background: #f4c995;
+}
+
+/* -------------------------------- */
 
 .numbers {
     font-size: 28px;
@@ -32,12 +45,24 @@
     background: #333333;
 }
 
+.numbers:active {
+    background: #737373;
+}
+
+/* -------------------------------- */
+
 .specials {
     font-size: 25px;
     font-weight: 1000;
     color: black;
     background: #a5a5a5;
 }
+
+.specials:active {
+    background: #d9d9d9;
+}
+
+/* -------------------------------- */
 
 .numberpad {
     width: 280px;
