@@ -55,7 +55,6 @@ function NumberPad() {
         }
         else if (input.replace("-", "").length >= 12){
             // only allow user to input numbers with digits less than 12
-            // do nothing
             newValue = input;
         }
         else if (input === "0" && keyPressed !== ".") {
@@ -63,7 +62,7 @@ function NumberPad() {
             newValue = keyPressed;
         }
         else if (keyPressed === "." && input.includes(".")) {
-            // if users pressed multiple "." for a value, 
+            // if a user presses multiple "." for a value, 
             // only keeping one "." is necessary
             // ignore the extra "."
             newValue = input;
@@ -315,7 +314,7 @@ function NumberPad() {
             <button data-value="2" onClick={updateInput} className="btn numbers">2</button>
             <button data-value="3" onClick={updateInput} className="btn numbers">3</button>
             <button id="plus" onClick={(e) => { handleOperation(e, Operators.Plus); }} className="btn operators"><span className="operatorPosition">+</span></button>
-            <button data-value="0" onClick={updateInput} className="btn numbers">0</button>
+            <button data-value="0" onClick={updateInput} className="btn numbers zero">0</button>
             <button data-value="." onClick={updateInput} className="btn numbers">.</button>
             <button onClick={equal} className="btn operators"><span className="operatorPosition">=</span></button>
         </div>

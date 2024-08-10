@@ -1,7 +1,7 @@
 .btn {
-    width: 60px;
-    height: 60px;
-    margin: 6px auto;
+    width: 65px;
+    height: 65px;
+    margin: 4px 4px;
     cursor: pointer;
     border: 0px;
     border-radius: 50%;
@@ -70,4 +70,10 @@
     display: grid;
     grid-template-columns: auto auto auto auto;
     background-color: white;
+}
+
+.zero{
+    grid-column: span 2;
+    width: 138px;
+    border-radius:50px;
 }
