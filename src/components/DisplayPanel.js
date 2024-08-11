@@ -19,7 +19,6 @@ function DisplayPanel() {
         let displayValue = "";
 
         if (isNaN(input) || !isFinite(input)) {
-            alert(input);
             displayValue = "Error";
         }
         else {

@@ -273,50 +273,50 @@ function NumberPad() {
     function highlightOperator(operator) {
         // First, dim all the operator buttons
         let plusBtn = document.getElementById("plus");
-        plusBtn.className = "btn operators";
+        plusBtn.className = "operators";
         let minusBtn = document.getElementById("minus");
-        minusBtn.className = "btn operators";
+        minusBtn.className = "operators";
         let multiplyBtn = document.getElementById("multiply");
-        multiplyBtn.className = "btn operators";
+        multiplyBtn.className = "operators";
         let divideBtn = document.getElementById("divide");
-        divideBtn.className = "btn operators";
+        divideBtn.className = "operators";
 
         // Then, hightlight only the specified operator button
         if (operator === Operators.Plus) {
-            plusBtn.className = "btn clickedOperators";
+            plusBtn.className = "clickedOperators";
         }
         else if (operator === Operators.Minus) {
-            minusBtn.className = "btn clickedOperators";
+            minusBtn.className = "clickedOperators";
         }
         else if (operator === Operators.Multiply) {
-            multiplyBtn.className = "btn clickedOperators";
+            multiplyBtn.className = "clickedOperators";
         }
         else if (operator === Operators.Divide) {
-            divideBtn.className = "btn clickedOperators";
+            divideBtn.className = "clickedOperators";
         }
     };
 
     return (
         <div className="numberpad">
-            <button onClick={reset} className="btn specials">AC</button>
-            <button onClick={flip} className="btn specials">±</button>
-            <button data-value="backspace" onClick={backSpace} className="btn specials">⌫</button>
-            <button id="divide" onClick={(e) => { handleOperation(e, Operators.Divide); }} className="btn operators"> <span className="operatorPosition">÷</span> </button>
-            <button data-value="7" onClick={updateInput} className="btn numbers">7</button>
-            <button data-value="8" onClick={updateInput} className="btn numbers">8</button>
-            <button data-value="9" onClick={updateInput} className="btn numbers">9</button>
-            <button id="multiply" onClick={(e) => { handleOperation(e, Operators.Multiply); }} className="btn operators"><span className="operatorPosition">x</span></button>
-            <button data-value="4" onClick={updateInput} className="btn numbers">4</button>
-            <button data-value="5" onClick={updateInput} className="btn numbers">5</button>
-            <button data-value="6" onClick={updateInput} className="btn numbers">6</button>
-            <button id="minus" onClick={ (e) => {handleOperation(e, Operators.Minus);} } className="btn operators"><span className="operatorPosition">-</span></button>
-            <button data-value="1" onClick={updateInput} className="btn numbers">1</button>
-            <button data-value="2" onClick={updateInput} className="btn numbers">2</button>
-            <button data-value="3" onClick={updateInput} className="btn numbers">3</button>
-            <button id="plus" onClick={(e) => { handleOperation(e, Operators.Plus); }} className="btn operators"><span className="operatorPosition">+</span></button>
-            <button data-value="0" onClick={updateInput} className="btn numbers zero">0</button>
-            <button data-value="." onClick={updateInput} className="btn numbers">.</button>
-            <button onClick={equal} className="btn operators"><span className="operatorPosition">=</span></button>
+            <button onClick={reset} className="specials">AC</button>
+            <button onClick={flip} className="specials">±</button>
+            <button data-value="backspace" onClick={backSpace} className="specials">⌫</button>
+            <button id="divide" onClick={(e) => { handleOperation(e, Operators.Divide); }} className="operators"> <span className="operatorPosition">÷</span> </button>
+            <button data-value="7" onClick={updateInput} className="numbers">7</button>
+            <button data-value="8" onClick={updateInput} className="numbers">8</button>
+            <button data-value="9" onClick={updateInput} className="numbers">9</button>
+            <button id="multiply" onClick={(e) => { handleOperation(e, Operators.Multiply); }} className="operators"><span className="operatorPosition">x</span></button>
+            <button data-value="4" onClick={updateInput} className="numbers">4</button>
+            <button data-value="5" onClick={updateInput} className="numbers">5</button>
+            <button data-value="6" onClick={updateInput} className="numbers">6</button>
+            <button id="minus" onClick={ (e) => {handleOperation(e, Operators.Minus);} } className="operators"><span className="operatorPosition">-</span></button>
+            <button data-value="1" onClick={updateInput} className="numbers">1</button>
+            <button data-value="2" onClick={updateInput} className="numbers">2</button>
+            <button data-value="3" onClick={updateInput} className="numbers">3</button>
+            <button id="plus" onClick={(e) => { handleOperation(e, Operators.Plus); }} className="operators"><span className="operatorPosition">+</span></button>
+            <button data-value="0" onClick={updateInput} id="zero" className="numbers">0</button>
+            <button data-value="." onClick={updateInput} className="numbers">.</button>
+            <button onClick={equal} className="operators"><span className="operatorPosition">=</span></button>
         </div>
     );
 }

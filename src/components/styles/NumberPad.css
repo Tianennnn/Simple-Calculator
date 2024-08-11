@@ -1,13 +1,28 @@
-.btn {
+.numberpad {
+    width: 310px;
+    height: 400px;
+    display: grid;
+    
+    grid-template-columns: 75px 75px 75px 75px;
+    grid-template-rows: 75px 75px 75px 75px;
+    background-color: black;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    padding: 00px 00px 00px 20px;    
+          /* top right bottom left */
+}
+
+/* -------------------------------- */
+
+button {
     width: 65px;
     height: 65px;
-    margin: 4px 4px;
     cursor: pointer;
     border: 0px;
     border-radius: 50%;
 }
 
-.btn:hover {
+button:hover {
     transform: scale(1.05);
 }
 
@@ -64,15 +79,7 @@
 
 /* -------------------------------- */
 
-.numberpad {
-    width: 280px;
-    height: 280px;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    background-color: white;
-}
-
-.zero{
+#zero{
     grid-column: span 2;
     width: 138px;
     border-radius:50px;
