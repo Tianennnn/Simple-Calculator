@@ -3,7 +3,7 @@ import {
     useState,
     useEffect
 } from "react";
-import { calculationContext } from "../App"
+import { calculationContext } from "../Calculator"
 
 function DisplayPanel() {
     const {

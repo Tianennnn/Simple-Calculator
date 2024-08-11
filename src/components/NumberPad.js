@@ -1,10 +1,9 @@
 import {
     useContext,
-    useEffect,
     useState
 } from "react";
 import Decimal from 'decimal.js';
-import { calculationContext } from "../App"
+import { calculationContext } from "../Calculator"
 import "./styles/NumberPad.css";
 
 let equalBtnLastClicked = false;

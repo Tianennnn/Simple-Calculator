@@ -2,7 +2,7 @@
     font-family: sans-serif;
 }
 
-.App{
+.calculator{
     height: 100%;
     display: grid;
     place-items: center;

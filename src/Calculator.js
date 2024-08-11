@@ -2,14 +2,12 @@ import {
     useState,
     createContext
 } from "react";
-import "./App.css";
-import "./components/styles/NumberPad.css";
+import "./Calculator.css";
 import NumberPad from "./components/NumberPad";
 import DisplayPanel from "./components/DisplayPanel";
 
 //  ！！！！！！！！！！！！！！！！！
 // if else 换 switch
-// rename calculator
 
 // (low priority) 先C 后AC
 
@@ -25,7 +23,7 @@ import DisplayPanel from "./components/DisplayPanel";
 
 export const calculationContext = createContext();
 
-function App() {
+function Calculator() {
     const [input, setInput] = useState("0");    // tracks the user's input value
     const [equation, setEquation] = useState([]);    // tracks the calculation
 
@@ -36,7 +34,7 @@ function App() {
                 equation, setEquation,
         }}>
 
-            <div className="App">
+            <div className="calculator">
                 <div>
                     <h1>Simple Calculator</h1>
                 </div>
@@ -64,4 +62,4 @@ function App() {
     );
 }
 
-export default App; 
+export default Calculator; 
