@@ -8,9 +8,8 @@ import NumberPad from "./components/NumberPad";
 import DisplayPanel from "./components/DisplayPanel";
 
 //  ！！！！！！！！！！！！！！！！！
-// hover on button
-// maximum input 9 digits
 // if else 换 switch
+// rename calculator
 
 // (low priority) 先C 后AC
 
@@ -21,6 +20,8 @@ import DisplayPanel from "./components/DisplayPanel";
 // BUG: flip: allow 0.   When operator clicked then click flip
 
 // BUG: press "=", then press "backspace", then press "number"
+
+// BUG: 开局按0，按“divide”， 再按“DIvide”试图取消
 
 export const calculationContext = createContext();
 
