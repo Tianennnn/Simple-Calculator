@@ -20,7 +20,7 @@ function NumberPad() {
         Divide: " ÷ ",
         Minus: " - ",
         Multiply: " x "
-    }
+    };
 
     /**
      * Process the key (for the number keys and the "." key) that the user just pressed
@@ -41,15 +41,24 @@ function NumberPad() {
             
             // reset the operator and the "=" button
             setCurOperator(null);
-            if (equalBtnLastClicked) {
-                equalBtnLastClicked = false;
-            }
+            equalBtnLastClicked = false;
             
-            newValue = keyPressed;
+            // start new input
+            if(keyPressed === "."){
+                newValue = "0.";
+            }
+            else{
+                newValue = keyPressed;
+            }
         }
         else if (equalBtnLastClicked || isNaN(input) || !isFinite(input)) {
             // start new calculation
-            newValue = keyPressed;
+            if (keyPressed === ".") {
+                newValue = "0.";
+            }
+            else {
+                newValue = keyPressed;
+            }
             equalBtnLastClicked = false;
         }
         else if (input.replace("-", "").length >= 12){
@@ -75,8 +84,7 @@ function NumberPad() {
         if (curOperator !== null) {
             highlightOperator(null);
         }
-
-    }
+    };
 
     /**
      * Handles the event when a operator button is clicked.
@@ -85,14 +93,14 @@ function NumberPad() {
     function handleOperation(e, clickedOperator) {
         e.preventDefault();
 
-        if (!isDivisionByZero()) {
-            // if the user click on the same operator buttton 
-            if (curOperator === clickedOperator) {
-                // deselect the operator
-                setCurOperator(null);
-                highlightOperator(null);
-            }
-            else {
+        // if the user click on the same operator buttton 
+        if (curOperator === clickedOperator) {
+            // deselect the operator
+            setCurOperator(null);
+            highlightOperator(null);
+        }
+        else{
+            if (!isDivisionByZero()) {
                 setCurOperator(clickedOperator);
                 highlightOperator(clickedOperator);
             }
@@ -135,7 +143,20 @@ function NumberPad() {
 
         let newValue;
 
-        if (input === "0" || isNaN(input) || !isFinite(input)) {
+        if (curOperator !== null) {
+            // save the previous input and previous operator
+            equation.push(Number(input));
+            equation.push(curOperator);
+            setEquation(equation.slice());
+
+            // reset the operator
+            setCurOperator(null);
+            highlightOperator(null);
+
+            // start new input
+            newValue = "0";
+        }
+        else if (input === "0" || isNaN(input) || !isFinite(input)) {
             // Do nothing
             return;
         }
@@ -159,6 +180,7 @@ function NumberPad() {
         setEquation([]);
         setInput("0");
         setCurOperator(null);
+        equalBtnLastClicked = false;
 
         // reset the color of operator buttons
         highlightOperator(null);
@@ -170,6 +192,11 @@ function NumberPad() {
      */
     function backSpace(e) {
         e.preventDefault();
+
+        if (curOperator !== null || equalBtnLastClicked) {
+            // do nothing
+            return
+        }
 
         let newInput = input.substring(0, input.length - 1);
         if (newInput === "" || newInput === "-" || isNaN(input) || !isFinite(input)) {

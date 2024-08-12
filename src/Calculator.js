@@ -13,13 +13,6 @@ import DisplayPanel from "./components/DisplayPanel";
 
 // (low priority) 符号按的时候就加入equation，先检查是否tail是符号，是的话pop，再push当前
 
-// BUG: press "=" then press "."
-
-// BUG: flip: allow 0.   When operator clicked then click flip
-
-// BUG: press "=", then press "backspace", then press "number"
-
-// BUG: 开局按0，按“divide”， 再按“DIvide”试图取消
 
 export const calculationContext = createContext();
 
