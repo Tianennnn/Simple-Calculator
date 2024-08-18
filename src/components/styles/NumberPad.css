@@ -6,10 +6,9 @@
     grid-template-columns: 75px 75px 75px 75px;
     grid-template-rows: 75px 75px 75px 75px;
     background-color: black;
-    border-bottom-left-radius: 10%;
-    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
     padding: 00px 00px 00px 20px;    
-          /* top right bottom left */
 }
 
 /* -------------------------------- */

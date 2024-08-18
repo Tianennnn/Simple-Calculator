@@ -4,6 +4,7 @@ import {
     useEffect
 } from "react";
 import { calculationContext } from "../Calculator"
+import "./styles/DisplayPanel.css";
 
 function DisplayPanel() {
     const {
@@ -23,16 +24,24 @@ function DisplayPanel() {
         }
         else {
             // if the string to display is too long 
-            if (input.replace("-", "").length > 12){
+            if (input.replace("-", "").length > 9){
                 // if the number value is not too large, and not too small
-                if (Math.abs(Number(input)) < Math.pow(10, 8) && 
+                if (Math.abs(Number(input)) < Math.pow(10, 9) && 
                     Math.abs(Number(input)) >= 1){
                     // truncate the decimal places
-                    displayValue = input.substring(0,12);
+                    displayValue = input.substring(0,10);
+                    //if the last character is "."
+                    if (displayValue.charAt(displayValue.length - 1) === "."){
+                        // remove the "."
+                        displayValue = displayValue.substring(0, displayValue.length - 1);
+                    }
                 }
                 else{
                     // convert to the scientific notation
                     displayValue = convertNumber(input);
+                    if (displayValue === "Error"){
+                        setInput(NaN);
+                    }
                 }
             }
             else{
@@ -68,17 +77,37 @@ function DisplayPanel() {
 
         let base = String(numberValue / Math.pow(10, power));
 
-        // only keep maximum 10 decimal places
-        base = String(roundToDecimalPlaces(Number(base), 10));
-
         let convertedNum = "";
-        if (power > 0) {
+        if(power > 999){
+            convertedNum = "Error";
+        }
+        else if (power > 0) {
+            // only keep maximum 9 digits/characters on screen
+            let keepDecimalPlaces = 9 
+                                    - 1         // integer part length
+                                    - 1         // decimal point
+                                    - 2         // "e" and "+"
+                                    - power.toString().length;
+            base = String(roundToDecimalPlaces(Number(base), keepDecimalPlaces));
+
             convertedNum = base + "e" + "+" + String(power);
         }
         else if (power < 0) {
+            // only keep maximum 9 digits/characters on screen
+            let keepDecimalPlaces = 9 
+                                    - 1         // integer part length
+                                    - 1         // decimal point
+                                    - 1         // "e"
+                                    - power.toString().length;
+            base = String(roundToDecimalPlaces(Number(base), keepDecimalPlaces));
+
             convertedNum = base + "e" + String(power);
         }
         else{
+            // only keep maximum 9 digits/characters on screen
+            let keepDecimalPlaces = 9;
+            base = String(roundToDecimalPlaces(Number(base), keepDecimalPlaces));
+
             convertedNum = base;
         }
         return convertedNum;
@@ -98,8 +127,8 @@ function DisplayPanel() {
 
 
     return (
-        <div>
-            <h1> Display: {display}</h1>
+        <div className="displayPanel">
+            <p className="displayValue">{display}</p>
         </div>
     );
 }

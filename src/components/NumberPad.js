@@ -61,8 +61,8 @@ function NumberPad() {
             }
             equalBtnLastClicked = false;
         }
-        else if (input.replace("-", "").length >= 12){
-            // only allow user to input numbers with digits less than 12
+        else if (input.replace("-", "").length >= 9){
+            // only allow user to input numbers with digits less than 9
             newValue = input;
         }
         else if (input === "0" && keyPressed !== ".") {
