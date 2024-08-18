@@ -6,9 +6,8 @@ The calculator can perform the four basic mathmatical operations: addition, subt
 <p align="center">
 <img src="public/CalculatorScreenshot.png" alt="Calculator Screenshot" width="250">
 </p>
-<br><br><br>
 
-# Getting Started
+## Getting Started
 Running the application requires the runtime environment Node.js and npm. Make sure these are installed on your computer. 
 
 First, in order to run the application, <b>node_modules</b> folder needs to be installed locally. 
