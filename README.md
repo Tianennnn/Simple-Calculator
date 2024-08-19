@@ -1,7 +1,7 @@
 # Simple Calculator
-This project is a simple calculator created using React. The user interface is inspired from the Calculator app on iPhones. It has buttons for numbers and operators, with a display showing the input and results.
+This project is a simple calculator created using React. The user interface is inspired from the Calculator app on iPhones. It has buttons for numbers and operators, with a display showing the input and results. 
 
-The calculator can perform the four basic mathmatical operations: addition, subtraction, multiplication, and division.
+The calculator can perform the four basic mathematical operations: addition, subtraction, multiplication, and division.
 
 <p align="center">
 <img src="public/CalculatorScreenshot.png" alt="Calculator Screenshot" width="250">
@@ -26,4 +26,4 @@ This will end up with the following output in the terminal:
 Compiled successfully!
 </p>
 We now have the application running on <b>localhost:3000</b>. 
-To view the application, open a browser with the address bar pointing to http://localhost:3000, and now you can start exploring the calculator application!
+To view the application, open a browser with the address bar pointing to http://localhost:3000, and now you can start exploring the calculator!
